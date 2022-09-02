@@ -1,0 +1,30 @@
+.container{
+    background-color: rgb(4, 81, 83);
+    color:aliceblue;
+    height: 100vh;
+    position: relative;
+}
+.topBar{
+    padding: 0;
+}
+.topBar h2,h3 {
+    margin: 0;
+    padding:3px ;
+    text-align: center;
+}
+
+#userMessage, :focus{
+    outline :none;
+    overflow:scroll;
+    /* margin: 3px; */
+    border-radius: 25px ;
+}
+.sendMessage{
+    border:none;
+    outline : none ;
+
+}
+.sendMessage:focus{
+    border:none;
+    outline : none;
+}
