@@ -1,0 +1,44 @@
+input{
+    caret-color: rgb(161, 239, 241);
+    background-color: rgb(3, 125, 129);
+    height: 37px ;
+    color: white;
+    border-radius: 25px;
+    border-style: none;
+    
+    margin-top: 10px;
+    margin-bottom: 20px ;
+    width:30%;
+    min-width: 250px;
+    text-align: center;
+}
+
+input:focus, textarea:focus{
+    outline-color:black ;
+    margin-top: 10px;
+    margin-bottom: 20px ;
+
+}
+button{
+    background-color: rgb(4, 126, 163);
+    height: 25px ;
+    width:  10%;
+    
+    min-width: fit-content;
+    border-radius: 25px;
+    border-style: none;
+    padding: 4px;
+}
+.login{
+    background-color: rgb(1, 51, 51);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper{
+    height: 100vh;
+    width: 100vw;
+}
