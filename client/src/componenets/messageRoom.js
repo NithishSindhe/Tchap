@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import io from "socket.io-client";
-import Chatbox from './chatbox';
 import "./css/messageRoom.css";
+
 const socket = io.connect("http://localhost:5000",{'forceNew':true})
 
 function MessageRoom(elements){
@@ -30,17 +30,31 @@ function MessageRoom(elements){
 
     return (
         <div className='container'>
-            <span className='topBar'>
-            <h2>You are in room {elements.roomId}</h2>
-            <h3>your user id is {socket.id}</h3>
-            </span>
-            <Chatbox messages = {messages}></Chatbox>
+            <div className='topBar'>
+                <h2>Room:{elements.roomId}</h2>
+                <h3>User ID: "{socket.id}"</h3>
+            </div>
+            <div className="chatbox">
+                <span className="allMessages">
+                    {messages.map( (object,key) =>{
+                        return (object.userName)?(
+                            <>
+                            <p className='username'>{object.userName}</p>
+                            <p key = {key} className="theMessage">{object.theMessage}</p>
+                            </>
+                        ):
+                        (<></>)
+                    })}
+                </span>
+            </div>
             <div className='controls'>
+                <div className='bottom0'>
                 <input id = "userMessage" type = "text" placeholder='enter your message' onChange={handelChange}></input>
 
-                <button className='sendMessage' onClick={handleSubmit}>send</button>
+                <button className='sendMessage' onClick={handleSubmit}>Send</button>
 
-                <button onClick={leaveRoom}> Leave room</button>
+                <button className = "leaveRoom" onClick={leaveRoom}>Leave room</button>
+                </div>
             </div>
         </div>
     )

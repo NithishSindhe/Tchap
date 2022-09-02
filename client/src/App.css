@@ -1,6 +1,5 @@
 input{
     caret-color: rgb(161, 239, 241);
-    
     background-color: rgb(3, 125, 129);
     height: 37px ;
     color: white;
@@ -12,7 +11,6 @@ input{
     width:30%;
     min-width: 250px;
     text-align: center;
-    
 }
 
 input:focus, textarea:focus{
@@ -38,4 +36,9 @@ button{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.wrapper{
+    height: 100vh;
+    width: 100vw;
 }
