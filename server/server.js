@@ -1,12 +1,15 @@
 const express = require("express");
-const socket = require("socket.io");
 const cors = require("cors");
-
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const http = require('http');
 const app = express();
 const httpServer = http.createServer(app);
+const passport = require("passport");
+const users = require("./routes/users");
 
 const {Server} = require("socket.io");
+const user = require("./db/user");
 const io = new Server(httpServer,{
 
     path: "/socket.io/",
@@ -15,8 +18,13 @@ const io = new Server(httpServer,{
     }
 })
 
+
 io.on("connect",(socket)=>{
     var roomId;
+    socket.on("createNewUser",(element)=>{
+        //create new user in db
+        console.log(element)
+    })
     socket.on("leaveRoom",(room)=>{
         socket.leave(roomId,(err)=>{
             if(err) console.log(err);
@@ -35,9 +43,28 @@ io.on("connect",(socket)=>{
 
 
 app.use(cors())
-app.get("/api",(req,res)=>{
-    // res.json({"users":["userOne","userTwo","userThree"]})
+
+app.use(bodyParser.urlencoded({
+    extended: false
+  })
+  )
+app.use(bodyParser.json());
+
+const db = require("./secret/keys").mongoURI ;
+
+mongoose.connect(
+    db,
+    {useNewUrlParser:true}
+)
+.then(()=>{
+    console.log("connected to db successfully");
 })
+.catch(err => console.log(err));
+
+app.use(passport.initialize());
+require("./db/passport")(passport);
+app.use("/api/users",users)
+
 
 httpServer.listen(5000,()=>{
     console.log("server listning on port 5000");

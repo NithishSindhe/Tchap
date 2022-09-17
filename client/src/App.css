@@ -5,7 +5,6 @@ input{
     color: white;
     border-radius: 25px;
     border-style: none;
-    
     margin-top: 10px;
     margin-bottom: 20px ;
     width:30%;
@@ -20,14 +19,7 @@ input:focus, textarea:focus{
 
 }
 button{
-    background-color: rgb(4, 126, 163);
-    height: 25px ;
-    width:  10%;
-    
-    min-width: fit-content;
-    border-radius: 25px;
-    border-style: none;
-    padding: 4px;
+    color:white;
 }
 .login{
     background-color: rgb(1, 51, 51);

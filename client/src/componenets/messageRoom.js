@@ -1,10 +1,11 @@
 import React,{useState} from 'react';
-import io from "socket.io-client";
+
 import "./css/messageRoom.css";
 
-const socket = io.connect("http://localhost:5000",{'forceNew':true})
+
 
 function MessageRoom(elements){
+    const socket = elements.socket;
     const [messages,setMessages] = useState([{}]);
     const [userMessage,setUserMessage] = useState();
 
@@ -26,6 +27,11 @@ function MessageRoom(elements){
     const leaveRoom = ()=>{
         socket.emit("leaveRoom",elements.roomId);
         elements.renderRoom(false);
+    }
+    const handleEnter = (e)=>{
+        if(e.key === "Enter"){
+            handleSubmit();
+        }
     }
 
     return (
@@ -49,7 +55,7 @@ function MessageRoom(elements){
             </div>
             <div className='controls'>
                 <div className='bottom0'>
-                <input id = "userMessage" type = "text" placeholder='enter your message' onChange={handelChange}></input>
+                <input id = "userMessage" type = "text" onKeyDown={handleEnter} placeholder='enter your message' onChange={handelChange}></input>
 
                 <button className='sendMessage' onClick={handleSubmit}>Send</button>
 
