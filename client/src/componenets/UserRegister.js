@@ -27,8 +27,10 @@ function UserRegister(attributes){
     const handleMail = (element)=>{
         setEmail(element.target.value);
     }
+    
     return (
         <div className="registerContainer">
+            <h1 style={{color:"white"}}>Enter registration Details</h1>
             <input onChange={handleMail} className = "email" placeholder="Email"></input>
             <input onChange={handleUsername} className="userName" placeholder="Username"></input>
             <input onChange={handlePassword} type = "password" className="password" placeholder="Password"></input>

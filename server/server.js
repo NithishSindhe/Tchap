@@ -21,10 +21,6 @@ const io = new Server(httpServer,{
 
 io.on("connect",(socket)=>{
     var roomId;
-    socket.on("createNewUser",(element)=>{
-        //create new user in db
-        console.log(element)
-    })
     socket.on("leaveRoom",(room)=>{
         socket.leave(roomId,(err)=>{
             if(err) console.log(err);
@@ -35,9 +31,7 @@ io.on("connect",(socket)=>{
         socket.join(room);
     });
     socket.on("userSentMessage",(data)=>{
-        if(data && data.replace(/\s/g,"").length){
-        io.to(roomId).emit("bradcastSocketMessage",data,socket.id);
-        }
+        io.to(roomId).emit("broadcastSocketMessage",data["message"],data["user"]);
     });
 });
 
@@ -64,7 +58,6 @@ mongoose.connect(
 app.use(passport.initialize());
 require("./db/passport")(passport);
 app.use("/api/users",users)
-
 
 httpServer.listen(5000,()=>{
     console.log("server listning on port 5000");
