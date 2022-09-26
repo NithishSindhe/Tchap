@@ -19,7 +19,7 @@ function MessageRoom(elements){
         setUserMessage(element.target.value);
     }
     const handleSubmit = (element) =>{        
-        let temp = {"message":userMessage,"user":elements.userData["userName"]};
+        let temp = {"message":userMessage,"user":elements.userData["userName"],"token":elements.userData["token"]};
         
         socket.emit("userSentMessage",temp);
         setUserMessage("");

@@ -7,7 +7,8 @@ const app = express();
 const httpServer = http.createServer(app);
 const passport = require("passport");
 const users = require("./routes/users");
-
+const jwt = require('jsonwebtoken');
+const keys = require("./secret/keys");
 const {Server} = require("socket.io");
 const user = require("./db/user");
 const io = new Server(httpServer,{
@@ -31,7 +32,15 @@ io.on("connect",(socket)=>{
         socket.join(room);
     });
     socket.on("userSentMessage",(data)=>{
-        io.to(roomId).emit("broadcastSocketMessage",data["message"],data["user"]);
+        jwt.verify(data["token"], keys.secretOrKey, (err,decoded)=>{
+            if(decoded){
+                io.to(roomId).emit("broadcastSocketMessage",data["message"],data["user"]);
+            }
+            if(err){
+                console.log("messaage sent with wrong token",err,data["token"])
+            }
+        })
+        
     });
 });
 

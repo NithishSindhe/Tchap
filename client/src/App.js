@@ -33,11 +33,11 @@ function App(){
   useEffect(()=>{
     let temp = Cookie.getAll();
     setUserData(temp);
-    
-    if(temp["loggedIn"] === false || temp["loggedIn"] === undefined){
-      return <Navigate to="/login"></Navigate>
-    }
   },[])
+  if(userData !== undefined){
+    if(userData["loggedIn"] === false || userData["loggedIn"] === undefined){
+      return (<Navigate to="/login"></Navigate>);
+  }}
   return (
     <div className='wrapper'>
        {(renderRoom)?

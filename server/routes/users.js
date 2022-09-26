@@ -64,6 +64,7 @@ router.post("/login",(req,res)=>{
                     id: users.id,
                     name:users.name
                 };
+                console.log()
                 jwt.sign(
                     payload,
                     keys.secretOrKey,
@@ -74,7 +75,8 @@ router.post("/login",(req,res)=>{
                         res.json({
                             success:true,
                             userName:userExists.name,
-                            token:"bearer" + token
+                            token:token
+                            // token:"bearer" + token
                         });
                     }
                 );
