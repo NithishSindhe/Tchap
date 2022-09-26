@@ -7,7 +7,8 @@ const app = express();
 const httpServer = http.createServer(app);
 const passport = require("passport");
 const users = require("./routes/users");
-
+const jwt = require('jsonwebtoken');
+const keys = require("./secret/keys");
 const {Server} = require("socket.io");
 const user = require("./db/user");
 const io = new Server(httpServer,{
@@ -21,10 +22,6 @@ const io = new Server(httpServer,{
 
 io.on("connect",(socket)=>{
     var roomId;
-    socket.on("createNewUser",(element)=>{
-        //create new user in db
-        console.log(element)
-    })
     socket.on("leaveRoom",(room)=>{
         socket.leave(roomId,(err)=>{
             if(err) console.log(err);
@@ -35,9 +32,15 @@ io.on("connect",(socket)=>{
         socket.join(room);
     });
     socket.on("userSentMessage",(data)=>{
-        if(data && data.replace(/\s/g,"").length){
-        io.to(roomId).emit("bradcastSocketMessage",data,socket.id);
-        }
+        jwt.verify(data["token"], keys.secretOrKey, (err,decoded)=>{
+            if(decoded){
+                io.to(roomId).emit("broadcastSocketMessage",data["message"],data["user"]);
+            }
+            if(err){
+                console.log("messaage sent with wrong token",err,data["token"])
+            }
+        })
+        
     });
 });
 
@@ -64,7 +67,6 @@ mongoose.connect(
 app.use(passport.initialize());
 require("./db/passport")(passport);
 app.use("/api/users",users)
-
 
 httpServer.listen(5000,()=>{
     console.log("server listning on port 5000");

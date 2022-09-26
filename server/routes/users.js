@@ -6,6 +6,7 @@ const users = require("../db/user");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const keys = require("../secret/keys");
+
 router.post("/register",(req,res)=>{
     const {errors,isValid} = validateRegisterInput(req.body);
     if(!isValid){
@@ -39,18 +40,21 @@ router.post("/register",(req,res)=>{
 });
 
 router.post("/login",(req,res)=>{
+
+
     const {errors,isValid} = validateLoginInput(req.body);
     
     if(!isValid){
+        errors.success = false;
         return res.status(404).json(errors);
     }
 
     const email = req.body.email;
     const password = req.body.password;
-
-    users.findOne({email}).then(userExists => {
-        if(!userExists){        
-            return res.status.apply(404).json({emailNotFound:"email not found"});
+    users.findOne({email})
+    .then(userExists => {
+        if(!userExists){  
+            return res.status(404).json({success:false,emailNotFound:"email not found"});
         }
         
         bcrypt.compare(password,userExists.password)
@@ -60,6 +64,7 @@ router.post("/login",(req,res)=>{
                     id: users.id,
                     name:users.name
                 };
+                console.log()
                 jwt.sign(
                     payload,
                     keys.secretOrKey,
@@ -69,7 +74,9 @@ router.post("/login",(req,res)=>{
                     (err,token)=>{
                         res.json({
                             success:true,
-                            token:"bearer" + token
+                            userName:userExists.name,
+                            token:token
+                            // token:"bearer" + token
                         });
                     }
                 );
