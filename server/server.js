@@ -1,3 +1,4 @@
+/*
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -11,14 +12,13 @@ const jwt = require('jsonwebtoken');
 const keys = require("./secret/keys");
 const {Server} = require("socket.io");
 const user = require("./db/user");
-const io = new Server(httpServer,{
 
+const io = new Server(httpServer,{
     path: "/socket.io/",
     cors:{
         origin:"http://localhost:3000",
     }
 })
-
 
 io.on("connect",(socket)=>{
     var roomId;
@@ -40,13 +40,10 @@ io.on("connect",(socket)=>{
                 console.log("messaage sent with wrong token",err,data["token"])
             }
         })
-        
     });
 });
 
-
 app.use(cors())
-
 app.use(bodyParser.urlencoded({
     extended: false
   })
@@ -71,3 +68,53 @@ app.use("/api/users",users)
 httpServer.listen(5000,()=>{
     console.log("server listning on port 5000");
 })  
+*/
+
+const http = require('http');
+const express = require("express");
+const app = express();
+const {Server} = require("socket.io");
+const httpServer = http.createServer(app);
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const users = require("./routes/users");
+
+app.use(cors())
+app.use(bodyParser.urlencoded({
+    extended: false
+  })
+)
+app.use(bodyParser.json());
+app.use("/api/users",users) //user login and register apis 
+
+httpServer.listen(5000,()=>{
+    console.log("server listning on port 5000");
+})  
+const io = new Server(httpServer,{
+    path: "/socket.io/",
+    cors:{
+        origin:"http://localhost:3000",
+    }
+})
+io.on("connect",(socket)=>{
+    var roomId;
+    socket.on("leaveRoom",(room)=>{
+        socket.leave(roomId,(err)=>{
+            if(err) console.log(err);
+        });
+    });
+    socket.on("joinRoom",(room)=>{
+        roomId = room;
+        socket.join(room);
+    });
+    socket.on("userSentMessage",(data)=>{
+        jwt.verify(data["token"], keys.secretOrKey, (err,decoded)=>{
+            if(decoded){
+                io.to(roomId).emit("broadcastSocketMessage",data["message"],data["user"]);
+            }
+            if(err){
+                console.log("messaage sent with wrong token",err,data["token"])
+            }
+        })
+    });
+});

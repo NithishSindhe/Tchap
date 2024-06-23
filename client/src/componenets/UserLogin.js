@@ -7,6 +7,7 @@ const Cookie = new Cookies();
 function UserLogin(){
     const [mail,setMail] = useState();
     const [UserPassword,setPassword] = useState();
+    const [register_bool,setRegisterbool] = useState(false);
     const handelChange = (element,stateModify) => {
         stateModify(element.target.value);
     }
@@ -20,8 +21,8 @@ function UserLogin(){
                 password:UserPassword
             })
         });
-        let temp = await authToken.json();
-        setJsonAuth(temp);
+        let response = await authToken.json();
+        setJsonAuth(response);
     }
     const Wrong = () => {
         if(jsonAuth){
@@ -38,12 +39,19 @@ function UserLogin(){
         }
         return <></>
     }
+    if(register_bool) return <Navigate to="/register" />
     return (
         <div className="login">
             <Wrong></Wrong>
             <input type="string" placeholder="Enter your Email" onChange={(element)=>{handelChange(element,setMail)}}></input>
             <input type="password" placeholder="Enter password"  onChange={(element)=>{handelChange(element,setPassword)}}></input>
-            <button onClick={login}>Login</button>
+            <div className='login_register'>
+                <button className = 'login_button' onClick={login}>Login</button>
+            <button className = 'register_button' onClick={(event)=>{
+                event.preventDefault();
+                setRegisterbool(prev => !prev)}
+            }>Register</button>
+            </div>
         </div>
     );
 }

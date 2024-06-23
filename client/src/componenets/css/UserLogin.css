@@ -19,3 +19,38 @@
     align-items: center;
     
 }
+
+.login_register{
+    width:fit-content;
+    height:fit-content;
+    height:30px;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+}
+
+
+.login_button{
+    width:100px;
+    padding-right:3px;
+    padding-left:3px;
+    margin-right:5px;
+    height:25px;
+    margin-left:5px
+}
+.login_button:focus {
+    outline: none;
+}
+
+.register_button{
+    width:100px;
+    padding-right:3px;
+    padding-left:3px;
+    margin-right:5px;
+    margin-left:5px;
+    height:25px;
+}
+.register_button:focus {
+    outline: none;
+}
