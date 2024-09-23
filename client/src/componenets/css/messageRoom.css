@@ -30,12 +30,14 @@
     padding-left: 25px;
     caret-color: white;
     text-align: start;
+    cursor: ponter;
 }
 
 #userMessage, :focus{
     outline: none;
-    overflow:scroll;
     border-radius: 25px ;
+    outline-width: 1px; 
+    outline: white solid 1px;
 }
 .leaveRoom{
     padding: 0;
@@ -100,7 +102,18 @@
 .userName{
     margin-bottom: 0;
 }
-button{
+
+.leaveRoom{ 
+    background-color: rgb(4, 126, 163);
+    height: 25px ;
+    width:  10%;
+    min-width: fit-content;
+    border-radius: 25px;
+    border-style: none;
+    padding: 4px;
+}
+
+.sendMessage{ 
     background-color: rgb(4, 126, 163);
     height: 25px ;
     width:  10%;
