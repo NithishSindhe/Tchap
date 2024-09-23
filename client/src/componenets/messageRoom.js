@@ -2,17 +2,12 @@ import React,{useState} from 'react';
 
 import "./css/messageRoom.css";
 
-
-
 function MessageRoom(elements){
     const socket = elements.socket;
-    
     const [messages,setMessages] = useState([]);
     const [userMessage,setUserMessage] = useState();
     socket.emit("joinRoom",elements.roomId);
-    
     socket.on("broadcastSocketMessage",(data,fromUser)=>{
-        
         setMessages([...messages,{userName:fromUser,theMessage:data}]);
     })
     const handelChange = (element) => {
@@ -24,7 +19,6 @@ function MessageRoom(elements){
         socket.emit("userSentMessage",temp);
         setUserMessage("");
     }
-    
     const leaveRoom = ()=>{
         socket.emit("leaveRoom",elements.roomId);
         elements.renderRoom(false);
@@ -62,7 +56,7 @@ function MessageRoom(elements){
               type="text"
               value={userMessage}
               onKeyDown={handleEnter}
-              placeholder="enter your message"
+              placeholder="Type you message"
               onChange={handelChange}
             ></input>
 

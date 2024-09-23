@@ -1,4 +1,4 @@
-input{
+.roomIdInput{
     caret-color: rgb(161, 239, 241);
     background-color: rgb(3, 125, 129);
     height: 37px;
@@ -12,13 +12,13 @@ input{
     text-align: center;
 }
 
-input:focus, textarea:focus{
+.roomIdInput:focus, textarea:focus{
     outline-color:black ;
     margin-top: 10px;
     margin-bottom: 20px ;
 
 }
-button{
+.joinRoom{
     color:white;
 }
 .enterRoom{
@@ -37,4 +37,12 @@ button{
     display: flex;
     flex-direction: column;
     align-items: stretch;
+}
+
+.appleMusic{
+    margin-top: 20px;
+    width:100%;
+    max-width:660px;
+    overflow:hidden;
+    background:transparent;
 }

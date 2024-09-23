@@ -77,7 +77,9 @@ const {Server} = require("socket.io");
 const httpServer = http.createServer(app);
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const users = require("./routes/users");
+
+// APIs 
+const users = require('./routes/users');
 
 app.use(cors())
 app.use(bodyParser.urlencoded({
@@ -85,6 +87,7 @@ app.use(bodyParser.urlencoded({
   })
 )
 app.use(bodyParser.json());
+
 app.use("/api/users",users) //user login and register apis 
 
 httpServer.listen(5000,()=>{
@@ -96,6 +99,7 @@ const io = new Server(httpServer,{
         origin:"http://localhost:3000",
     }
 })
+
 io.on("connect",(socket)=>{
     var roomId;
     socket.on("leaveRoom",(room)=>{

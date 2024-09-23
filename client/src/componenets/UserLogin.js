@@ -8,6 +8,7 @@ function UserLogin(){
     const [mail,setMail] = useState();
     const [UserPassword,setPassword] = useState();
     const [register_bool,setRegisterbool] = useState(false);
+    const [remember_me,setRemember_me] = useState(false)
     const handelChange = (element,stateModify) => {
         stateModify(element.target.value);
     }
@@ -21,7 +22,9 @@ function UserLogin(){
                 password:UserPassword
             })
         });
+        console.log(authToken)
         let response = await authToken.json();
+        console.log('response:',response)
         setJsonAuth(response);
     }
     const Wrong = () => {
@@ -45,6 +48,10 @@ function UserLogin(){
             <Wrong></Wrong>
             <input type="string" placeholder="Enter your Email" onChange={(element)=>{handelChange(element,setMail)}}></input>
             <input type="password" placeholder="Enter password"  onChange={(element)=>{handelChange(element,setPassword)}}></input>
+            <div>
+                <input type="checkbox" id="RememberMeCheckbox" name="checkbox" value={remember_me} onChange={(element)=>{setRemember_me(element.target.checked)}}/>
+                <label for="RememberMeCheckbox" className='whiteText' >Remember me</label>
+            </div>
             <div className='login_register'>
                 <button className = 'login_button' onClick={login}>Login</button>
             <button className = 'register_button' onClick={(event)=>{

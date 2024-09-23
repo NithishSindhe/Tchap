@@ -8,4 +8,62 @@
     align-items: center;
 }
 
+.first_register_button{ 
+    width:160px;
+    height:40px;
+    font-size:25px;
+    background-color: rgb(4, 126, 163);
+    border:none;
+    border-radius: 25px;
+    color:white;
+    padding-top:3px;
+    padding-bottom:3px;
+    padding-right:5px;
+    padding-left:5px;
+    cursor:pointer;
+}
 
+.first_register_button :focus{
+    border:none;
+    outline: 1px solid white;
+}
+
+.outline_on_focus :focus{
+    outline: 1px solid white;
+}
+
+.register_input{
+    font-size:22px;
+    min-width: 100px;
+    margin-top:5px;
+    margin-bottom:5px;
+    border:1px solid transparent;
+    color:white;
+    width:auto;
+    padding-left:4px;
+    padding-right:4px;
+    padding-top:2px;
+    padding-bottom:2px;
+    background-color:rgb(4, 126, 163);
+    border-radius:3px;
+}
+
+.register_input :focus{
+    outline:1px solix white;
+}
+
+input.register_input.register_input::placeholder{
+    color: darkdarkgray;
+}
+
+input.register_input::-webkit-input-placeholder {
+  color: darkgray;
+}
+
+input.register_input:-ms-input-placeholder {
+  color: darkgray;
+}
+
+input.register_input::-ms-input-placeholder {
+  color: darkgray;
+}

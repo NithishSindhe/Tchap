@@ -4,7 +4,6 @@ const isEmpty = require("is-empty");
 function validateRegisterInput(data) {
     // accumilate all errors to throw at form 
     let errors = {};
-
     // functions
     data.name = !isEmpty(data.name) ? data.name : "";
     data.email = !isEmpty(data.email) ? data.email : "";

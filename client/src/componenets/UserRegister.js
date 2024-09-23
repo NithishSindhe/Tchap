@@ -40,11 +40,11 @@ function UserRegister(attributes){
     return (
         <div className="registerContainer">
             <h1 style={{color:"white"}}>Enter registration Details</h1>
-            <input onChange={handleMail} className = "email" placeholder="Email"></input>
-            <input onChange={handleUsername} className="userName" placeholder="Username"></input>
-            <input onChange={e => setPassword(e.target.value)} type = "password" className="password" placeholder="Password"></input>
-            <input onChange={e => setConfirmPassword(e.target.value)} type = "password" className="password" placeholder="Confirm Password"></input>
-            <button onClick={register}>Register</button>
+            <input className='register_input' onChange={handleMail}  placeholder="Email"></input>
+            <input className='register_input' onChange={handleUsername}  placeholder="Username"></input>
+            <input className='register_input' onChange={e => setPassword(e.target.value)} type = "password" placeholder="Password"></input>
+            <input className='register_input' onChange={e => setConfirmPassword(e.target.value)} type = "password" placeholder="Confirm Password"></input>
+            <button className='first_register_button outline_on_focus' onClick={register}>Register</button>
         </div>
     );
 }

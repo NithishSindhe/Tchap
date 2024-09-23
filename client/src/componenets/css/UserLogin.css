@@ -1,3 +1,7 @@
+.whiteText{
+    color:white;
+}
+
 .login{
     display: flex;
     align-items: center;
