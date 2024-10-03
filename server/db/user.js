@@ -71,7 +71,7 @@ const get_user_info = (email) => {
     var connection = mysql.createConnection(db_connect_info)
     connection.connect( err => {
         if(err) throw err
-        connection.query(command, (error,results,fields) => {
+        connection.query(command, (error,results,_fields) => {
             if(error) throw error
             console.log(results);
         });
@@ -79,13 +79,18 @@ const get_user_info = (email) => {
 }
 
 const create_mysql_user = (username, password, email, phone) => {
-    command = `INSERT INTO user_identity (userName, phoneNumber, password, email) VALUES ("${username}", "${phone}", "${password}", "${email}");`
+    command = `INSERT INTO user_identity (userName, phoneNumber, password, email) VALUES (?,?,?,?);`
     if(phone == null) command = command = `INSERT INTO user_identity (userName, phoneNumber, password, email) VALUES ("${username}", ${phone}, "${password}", "${email}");`
+    params = [username, phone, password, email]
     var connection = mysql.createConnection(db_connect_info);
     console.log('creating new user')
     connection.connect((err) => {
-        if(err) throw err
-        connection.query(command, (error,response,fields) => {
+        if(err){
+            console.log('There was some error trying to connect to database')
+            throw err
+        }
+        connection.query(command, params, (error,response,_fields) => {
+            console.log('create new user promise resolved')
             if(error) throw new Error({name:'Error creating new user:', message:error})
             console.log('created new user. Response:',response)
         })

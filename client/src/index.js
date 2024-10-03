@@ -5,7 +5,6 @@ import App from './App';
 import {BrowserRouter , Routes , Route} from 'react-router-dom'
 import UserRegister from './componenets/UserRegister';
 import UserLogin from './componenets/UserLogin';
-import Testing from './componenets/Testing';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
