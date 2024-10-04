@@ -2,7 +2,7 @@
 //const validateLoginInput = require("../db/login");
 const bcrypt = require("bcryptjs");
 const express = require("express");
-const {check_email_existence, create_mysql_user, get_user_info} = require("../db/user");
+const {check_email_existence, create_mysql_user} = require("../db/user");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const keys = require("../secret/keys");
